@@ -1431,6 +1431,10 @@ SwaggerSpecConverter.prototype.models = function(obj, swagger) {
       if(existingProperty['enum']) {
         property['enum'] = existingProperty['enum'];
       }
+      if(existingProperty['$ref']) {
+        property['$ref'] = existingProperty['$ref'];
+      }
+      property.readOnly = existingProperty.readOnly;
       if(typeof existingProperty.required === 'boolean' && existingProperty.required === true) {
         _enum.push(propertyName);
       }
@@ -1616,6 +1620,7 @@ SwaggerSpecConverter.prototype.parameters = function(operation, obj, swagger) {
     parameter.description = existingParameter.description;
     parameter.required = existingParameter.required;
     parameter.in = existingParameter.paramType;
+    parameter.enum = existingParameter.enum;
 
     // per #168
     if(parameter.in === 'body') {
